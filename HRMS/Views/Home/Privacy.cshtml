@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+<div class="page-header mb-4">
+    <div class="d-flex align-items-center gap-2 mb-1">
+        <span class="badge badge-accent">Transparency</span>
+        <span class="text-muted small">Updated March 2026</span>
+    </div>
+    <h1 class="page-title">Privacy Policy & Data Security</h1>
+    <p class="page-subtitle">How we protect, process, and respect your personal workplace information</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card p-4 p-md-5 mb-4 shadow-sm">
+            <h4 class="fw-bold mb-3"><i class="bi bi-shield-check text-primary me-2"></i> 1. Information We Collect</h4>
+            <p class="text-muted">As part of the Coforge Human Resource Management System (HRMS), we collect and process information necessary to manage employment, payroll, leave requests, attendance, and team performance.</p>
+            <ul class="text-muted">
+                <li>Personal identification details (Name, Work Email, Phone Number)</li>
+                <li>Employment records (Department, Designation, Date of Joining, Manager hierarchy)</li>
+                <li>Time & Attendance tracking (Check-in/Check-out timestamps, leave allocations)</li>
+                <li>Compensation details (Salary breakdown, allowances, and statutory deductions)</li>
+            </ul>
+
+            <h4 class="fw-bold mt-4 mb-3"><i class="bi bi-lock text-primary me-2"></i> 2. How Your Data Is Protected</h4>
+            <p class="text-muted">We implement strict industry-standard security safeguards to protect employee information against unauthorized access, loss, or manipulation. Access to confidential records is governed by strict Role-Based Access Control (RBAC):</p>
+            <div class="row g-3 my-2">
+                <div class="col-md-6">
+                    <div class="p-3 rounded-3" style="background: var(--bg-body); border: 1px solid var(--border-color);">
+                        <h6 class="fw-bold mb-1"><i class="bi bi-person-badge text-primary me-1"></i> Role-Based Boundaries</h6>
+                        <p class="text-muted small mb-0">Employees only access their own records; Managers review only their designated team members.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="p-3 rounded-3" style="background: var(--bg-body); border: 1px solid var(--border-color);">
+                        <h6 class="fw-bold mb-1"><i class="bi bi-file-earmark-lock text-primary me-1"></i> Data Encryption</h6>
+                        <p class="text-muted small mb-0">All communication and sensitive credential hashes are protected with modern cryptographic ciphers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="fw-bold mt-4 mb-3"><i class="bi bi-arrow-repeat text-primary me-2"></i> 3. Data Retention & Access</h4>
+            <p class="text-muted mb-0">Employee records are securely stored during the tenure of active employment and retained for audit compliance according to statutory labor regulations. Employees have the right to request updates or view their personal profile information at any time via the self-service portal.</p>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card p-4 mb-4 shadow-sm">
+            <h5 class="fw-bold mb-3"><i class="bi bi-chat-heart text-primary me-2"></i> Need Assistance?</h5>
+            <p class="text-muted small">Have inquiries about your workplace data privacy or wish to request an update to your records?</p>
+            <div class="p-3 rounded-3 mb-3" style="background: var(--bg-body);">
+                <div class="fw-semibold small">HR Privacy Officer</div>
+                <div class="text-muted small">hr@hrms.com</div>
+                <div class="text-muted small">Employee Support Desk</div>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-custom w-100">
+                <i class="bi bi-arrow-left me-1"></i> Return to Home
+            </a>
+        </div>
+
+        <div class="card p-4 shadow-sm text-center" style="background: linear-gradient(135deg, rgba(193, 91, 128, 0.08), rgba(240, 198, 216, 0.15)); border: 1px dashed var(--primary);">
+            <div class="display-6 mb-2">🌸</div>
+            <h6 class="fw-bold mb-1">Human-Centric Culture</h6>
+            <p class="text-muted small mb-0">"Our commitment to privacy is rooted in our deep respect for every individual on our team."</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+@model HRMS.ViewModels.Manager.ManagerViewModel
+
+@{
+    ViewData["Title"] = "Edit Manager";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">Edit Manager Account</h2>
+            <p class="text-muted mb-0">Update manager profile information and department allocation.</p>
+        </div>
+        <a asp-action="Index" class="btn-hrms-outline">
+            <i class="bi bi-arrow-left me-1"></i> Back to Managers
+        </a>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="hrms-card p-4 p-md-5">
+
+            <form asp-action="Edit" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <input type="hidden" asp-for="ManagerId" />
+                <input type="hidden" asp-for="UserId" />
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 mb-4 small" role="alert"></div>
+
+                <div class="row g-4">
+
+                    <!-- Manager Name -->
+                    <div class="col-md-6">
+                        <label asp-for="ManagerName" class="form-label">Manager Name</label>
+                        <input asp-for="ManagerName" class="form-control" placeholder="Enter manager name" />
+                        <span asp-validation-for="ManagerName" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">Email Address</label>
+                        <input asp-for="Email" type="email" class="form-control" placeholder="manager@company.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="col-md-6">
+                        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Joining Date -->
+                    <div class="col-md-6">
+                        <label asp-for="JoiningDate" class="form-label">Joining Date</label>
+                        <input asp-for="JoiningDate" type="date" class="form-control" />
+                        <span asp-validation-for="JoiningDate" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="col-md-6">
+                        <label asp-for="DepartmentId" class="form-label">Department Assignment</label>
+                        <select asp-for="DepartmentId" asp-items="ViewBag.Departments" class="form-select">
+                            <option value="">-- Select Department --</option>
+                        </select>
+                        <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+                    </div>
+
+                    <!-- Designation -->
+                    <div class="col-md-6">
+                        <label asp-for="Designation" class="form-label">Designation</label>
+                        <input asp-for="Designation" class="form-control" value="Manager" readonly />
+                        <span asp-validation-for="Designation" class="text-danger small"></span>
+                    </div>
+
+                </div>
+
+                <div class="d-flex align-items-center gap-3 mt-4 pt-3 border-top" style="border-color: var(--hrms-card-border) !important;">
+                    <button type="submit" class="btn-hrms-primary px-4 py-2">
+                        <i class="bi bi-check2-circle me-1"></i> Save Changes
+                    </button>
+                    <a asp-action="Details" asp-route-id="@Model.ManagerId" class="btn-hrms-outline px-4 py-2">
+                        Cancel
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

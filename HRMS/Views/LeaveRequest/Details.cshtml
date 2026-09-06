@@ -1,0 +1,106 @@
+@model HRMS.Models.LeaveRequest
+
+@{
+    ViewData["Title"] = "Leave Request Details";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">Leave Request Details</h2>
+            <p class="text-muted mb-0">Review submission and take action on employee time-off.</p>
+        </div>
+        <a asp-action="Index" class="btn-hrms-outline">
+            <i class="bi bi-arrow-left me-1"></i> Back to Queue
+        </a>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="hrms-card p-4 p-md-5">
+
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: var(--hrms-card-border) !important;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="sidebar-avatar" style="width: 48px; height: 48px; font-size: 18px;">
+                        @(Model.Employee?.EmployeeName?.Substring(0, 1).ToUpper() ?? "E")
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0">@(Model.Employee?.EmployeeName ?? $"Employee #{Model.EmployeeId}")</h4>
+                        <small class="text-muted">Application #@Model.LeaveRequestId</small>
+                    </div>
+                </div>
+
+                <div>
+                    @if (Model.Status == "Approved")
+                    {
+                        <span class="badge-hrms badge-approved fs-6">
+                            <i class="bi bi-check-circle-fill"></i> Approved
+                        </span>
+                    }
+                    else if (Model.Status == "Rejected")
+                    {
+                        <span class="badge-hrms badge-rejected fs-6">
+                            <i class="bi bi-x-circle-fill"></i> Rejected
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge-hrms badge-pending fs-6">
+                            <i class="bi bi-clock-fill"></i> Pending Review
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Leave Type</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-bold">@Model.LeaveType</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Date Range</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.StartDate.ToString("dd MMM yyyy") – @Model.EndDate.ToString("dd MMM yyyy")</span>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Reason Provided</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <p class="mb-0 text-secondary">@Model.Reason</p>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Status == "Pending")
+            {
+                <div class="d-flex align-items-center gap-3 pt-3 border-top" style="border-color: var(--hrms-card-border) !important;">
+                    <form asp-action="Approve"
+                          asp-route-id="@Model.LeaveRequestId"
+                          method="post"
+                          class="d-inline m-0">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success px-4 py-2 rounded-3">
+                            <i class="bi bi-check2-circle me-1"></i> Approve Request
+                        </button>
+                    </form>
+
+                    <form asp-action="Reject"
+                          asp-route-id="@Model.LeaveRequestId"
+                          method="post"
+                          class="d-inline m-0">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-hrms-danger-soft px-4 py-2 rounded-3">
+                            <i class="bi bi-x-circle me-1"></i> Reject Request
+                        </button>
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>

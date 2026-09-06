@@ -1,0 +1,151 @@
+@model IEnumerable<HRMS.Models.Attendance>
+
+@{
+    ViewData["Title"] = "My Attendance";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold font-serif mb-1">My Attendance</h2>
+        <p class="text-muted mb-0">
+            Log your daily presence and view historical attendance logs.
+        </p>
+    </div>
+
+    <a asp-controller="EmployeeDashboard"
+       asp-action="Index"
+       class="btn-hrms-outline">
+        <i class="bi bi-arrow-left me-1"></i> Dashboard
+    </a>
+</div>
+
+@if (TempData["AttendanceMessage"] != null)
+{
+    <div class="alert alert-info py-3 px-4 rounded-4 mb-4 d-flex align-items-center gap-2 border-0 shadow-sm"
+         style="background: var(--badge-info-bg); color: var(--badge-info-text);">
+        <i class="bi bi-info-circle fs-5"></i>
+        <span>@TempData["AttendanceMessage"]</span>
+    </div>
+}
+
+<!-- Today's Clock In/Out Action Card -->
+<div class="hrms-card mb-4 p-4">
+    <div class="row align-items-center g-3">
+        <div class="col-md-7">
+            <div class="d-flex align-items-center gap-3">
+                <div class="stat-icon-wrap stat-icon-mint" style="width: 52px; height: 52px; font-size: 24px;">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-1">Today's Presence</h5>
+                    <p class="text-muted small mb-0">Record your shift arrival and departure times with a single click</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="d-flex gap-3 justify-content-md-end">
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckIn"
+                      method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-hrms-primary px-4 py-2">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Check In
+                    </button>
+                </form>
+
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckOut"
+                      method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-hrms-danger-soft px-4 py-2">
+                        <i class="bi bi-box-arrow-right me-1"></i> Check Out
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Attendance History Table -->
+<div class="hrms-table-container p-0">
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--hrms-card-border) !important;">
+        <div>
+            <h5 class="fw-bold mb-0">Attendance History</h5>
+            <small class="text-muted">Recorded sessions and timestamps</small>
+        </div>
+        <span class="badge-hrms badge-role">@(Model?.Count() ?? 0) Total Days</span>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attendance in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-semibold">
+                                    @attendance.AttendanceDate.ToString("dd MMM yyyy")
+                                </div>
+                                <small class="text-muted">
+                                    @attendance.AttendanceDate.ToString("dddd")
+                                </small>
+                            </td>
+
+                            <td>
+                                @if (attendance.Status == "Present")
+                                {
+                                    <span class="badge-hrms badge-present">
+                                        <i class="bi bi-check-circle-fill"></i> Present
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-hrms badge-rejected">
+                                        @attendance.Status
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                <span class="fw-semibold">
+                                    @(attendance.CheckInTime.HasValue
+                                        ? attendance.CheckInTime.Value.ToString("hh:mm tt")
+                                        : "--")
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="fw-semibold">
+                                    @(attendance.CheckOutTime.HasValue
+                                        ? attendance.CheckOutTime.Value.ToString("hh:mm tt")
+                                        : "--")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <div class="stat-icon-wrap stat-icon-mint mx-auto mb-3" style="width: 60px; height: 60px; font-size: 26px;">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+            <h5 class="fw-bold mb-1">No Attendance Records Yet</h5>
+            <p class="text-muted small mb-0">Your daily check-in records will appear here once logged.</p>
+        </div>
+    }
+</div>

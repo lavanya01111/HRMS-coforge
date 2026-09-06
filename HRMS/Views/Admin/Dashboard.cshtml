@@ -1,0 +1,253 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!-- GREETING BANNER -->
+<div class="greeting-banner">
+    <div class="greeting-text">
+        <span class="greeting-badge">
+            <i class="bi bi-shield-lock-fill"></i> System Administration
+        </span>
+        <h2>Admin Dashboard</h2>
+        <p class="greeting-quote">
+            "Big Decisions, Brighter Teams." ♡
+        </p>
+    </div>
+    <div class="d-none d-lg-block text-end">
+        <a asp-controller="Manager"
+           asp-action="Create"
+           class="btn-hrms-primary px-4 py-3">
+            <i class="bi bi-person-plus me-1"></i> Create Manager
+        </a>
+    </div>
+</div>
+
+<!-- SUMMARY STATS (MATCHING REFERENCE IMAGE 1) -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Employees -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Total Employees</span>
+                    <div class="stat-icon-wrap stat-icon-pink">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+                <div class="stat-value">@(ViewBag.TotalEmployees ?? 0)</div>
+                <p class="stat-subtext">Active staff members</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="Employee"
+                   asp-action="Index"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>Manage Directory</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Departments</span>
+                    <div class="stat-icon-wrap stat-icon-mint">
+                        <i class="bi bi-building"></i>
+                    </div>
+                </div>
+                <div class="stat-value">@(ViewBag.TotalDepartments ?? 0)</div>
+                <p class="stat-subtext">Operating divisions</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="Department"
+                   asp-action="Index"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>Manage Departments</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Managers -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Managers</span>
+                    <div class="stat-icon-wrap stat-icon-peach">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                </div>
+                <div class="stat-value">@(ViewBag.TotalManagers ?? 0)</div>
+                <p class="stat-subtext">Team leaders</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="Manager"
+                   asp-action="Index"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>Manage Managers</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Pending Requests</span>
+                    <div class="stat-icon-wrap stat-icon-lavender">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                </div>
+                <div class="stat-value text-warning">@(ViewBag.PendingRequests ?? 0)</div>
+                <p class="stat-subtext">Awaiting admin/HR review</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="LeaveRequest"
+                   asp-action="Index"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>Review Leave Queue</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- MANAGEMENT PORTALS & ROLE OVERVIEW -->
+<div class="row g-4 mb-4">
+
+    <!-- Core Management Modules (Left) -->
+    <div class="col-lg-8">
+        <div class="hrms-card h-100">
+            <div class="mb-4">
+                <h5 class="fw-bold mb-1">Administrative Portals</h5>
+                <p class="text-muted small mb-0">Direct access to organizational and user directories</p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <a asp-controller="Employee"
+                       asp-action="Index"
+                       class="quick-action-card p-3 flex-row text-start align-items-center gap-3">
+                        <div class="quick-action-icon flex-shrink-0">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div>
+                            <h6 class="quick-action-title">Employee Directory</h6>
+                            <p class="quick-action-desc">Profiles, status & records</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a asp-controller="Department"
+                       asp-action="Index"
+                       class="quick-action-card p-3 flex-row text-start align-items-center gap-3">
+                        <div class="quick-action-icon flex-shrink-0" style="background: var(--hrms-accent-mint); color: #10b981;">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div>
+                            <h6 class="quick-action-title">Departments</h6>
+                            <p class="quick-action-desc">Divisions & organization tree</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a asp-controller="Manager"
+                       asp-action="Index"
+                       class="quick-action-card p-3 flex-row text-start align-items-center gap-3">
+                        <div class="quick-action-icon flex-shrink-0" style="background: var(--hrms-accent-peach); color: #e06638;">
+                            <i class="bi bi-person-badge"></i>
+                        </div>
+                        <div>
+                            <h6 class="quick-action-title">Manager Accounts</h6>
+                            <p class="quick-action-desc">Assign department leads</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6">
+                    <a asp-controller="HR"
+                       asp-action="Index"
+                       class="quick-action-card p-3 flex-row text-start align-items-center gap-3">
+                        <div class="quick-action-icon flex-shrink-0" style="background: var(--hrms-accent-lavender); color: #7c4dff;">
+                            <i class="bi bi-person-workspace"></i>
+                        </div>
+                        <div>
+                            <h6 class="quick-action-title">HR Operations</h6>
+                            <p class="quick-action-desc">Manage HR staff permissions</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Overview & Breakdown (Right) -->
+    <div class="col-lg-4">
+        <div class="hrms-card h-100">
+            <div class="mb-4">
+                <h5 class="fw-bold mb-1">Role Distribution</h5>
+                <p class="text-muted small mb-0">System users categorized by assigned role</p>
+            </div>
+
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-workspace text-info"></i>
+                        <span class="fw-semibold">HR Staff</span>
+                    </div>
+                    <span class="badge-hrms badge-role">@(ViewBag.HrCount ?? 0)</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-person-badge text-warning"></i>
+                        <span class="fw-semibold">Department Managers</span>
+                    </div>
+                    <span class="badge-hrms badge-pending">@(ViewBag.ManagerCount ?? 0)</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-people text-primary"></i>
+                        <span class="fw-semibold">Employees</span>
+                    </div>
+                    <span class="badge-hrms badge-approved">@(ViewBag.EmployeeCount ?? 0)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- BOTTOM MOTIVATIONAL CARD (MATCHING REFERENCE IMAGE 1: "BIG DECISIONS BRIGHTER TEAMS") -->
+<div class="motivational-card p-4">
+    <img src="~/images/cute-avatar.jpg"
+         alt="Admin Avatar"
+         class="motivational-avatar"
+         style="width: 72px; height: 72px;" />
+    <div>
+        <h4 class="font-serif fw-bold mb-1">
+            "Big decisions create brighter teams." ♡
+        </h4>
+        <p class="text-muted small mb-0">
+            Empower your HR and managers with transparent workflows, empathetic culture, and seamless tools.
+        </p>
+    </div>
+</div>

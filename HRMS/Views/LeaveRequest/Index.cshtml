@@ -1,0 +1,132 @@
+@model IEnumerable<HRMS.Models.LeaveRequest>
+
+@{
+    ViewData["Title"] = "Leave Requests";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold font-serif mb-1">Leave Requests Queue</h2>
+        <p class="text-muted mb-0">Review employee leave applications and record managerial decisions.</p>
+    </div>
+</div>
+
+<div class="hrms-table-container p-0">
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--hrms-card-border) !important;">
+        <div>
+            <h5 class="fw-bold mb-0">Submitted Requests</h5>
+            <small class="text-muted">Applications pending and decided</small>
+        </div>
+        <span class="badge-hrms badge-role">@(Model?.Count() ?? 0) Applications</span>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Leave Type</th>
+                        <th>Dates</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="sidebar-avatar" style="width: 34px; height: 34px; font-size: 13px;">
+                                        @(item.Employee?.EmployeeName?.Substring(0, 1).ToUpper() ?? "E")
+                                    </div>
+                                    <span class="fw-bold">
+                                        @(item.Employee?.EmployeeName ?? $"Employee #{item.EmployeeId}")
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge-hrms badge-role">@item.LeaveType</span>
+                            </td>
+                            <td>
+                                <span class="fw-semibold">@item.StartDate.ToString("dd MMM yyyy")</span>
+                                <small class="text-muted d-block">to @item.EndDate.ToString("dd MMM yyyy")</small>
+                            </td>
+                            <td>
+                                <span class="text-secondary" style="max-width: 220px; display: inline-block;">
+                                    @item.Reason
+                                </span>
+                            </td>
+                            <td>
+                                @if (item.Status == "Approved")
+                                {
+                                    <span class="badge-hrms badge-approved">
+                                        <i class="bi bi-check-circle-fill"></i> Approved
+                                    </span>
+                                }
+                                else if (item.Status == "Rejected")
+                                {
+                                    <span class="badge-hrms badge-rejected">
+                                        <i class="bi bi-x-circle-fill"></i> Rejected
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-hrms badge-pending">
+                                        <i class="bi bi-clock-fill"></i> Pending
+                                    </span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-1 align-items-center">
+                                    <a asp-action="Details"
+                                       asp-route-id="@item.LeaveRequestId"
+                                       class="btn-hrms-soft btn-sm"
+                                       title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    @if (item.Status == "Pending")
+                                    {
+                                        <form asp-action="Approve"
+                                              asp-route-id="@item.LeaveRequestId"
+                                              method="post"
+                                              class="d-inline m-0">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-sm btn-success rounded-pill px-3 py-1" style="font-size: 12px;">
+                                                <i class="bi bi-check"></i> Approve
+                                            </button>
+                                        </form>
+
+                                        <form asp-action="Reject"
+                                              asp-route-id="@item.LeaveRequestId"
+                                              method="post"
+                                              class="d-inline m-0">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn-hrms-danger-soft btn-sm rounded-pill px-3 py-1" style="font-size: 12px;">
+                                                <i class="bi bi-x"></i> Reject
+                                            </button>
+                                        </form>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <div class="stat-icon-wrap stat-icon-pink mx-auto mb-3" style="width: 60px; height: 60px; font-size: 26px;">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+            <h5 class="fw-bold mb-1">No Leave Requests Found</h5>
+            <p class="text-muted small mb-0">All submitted employee requests will appear here for review.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,24 @@
+@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Email Confirmation";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card p-4 p-md-5 text-center shadow-sm">
+                <div class="stat-icon mx-auto mb-3" style="background: rgba(193, 91, 128, 0.12); color: var(--primary); width: 64px; height: 64px; font-size: 1.75rem;">
+                    <i class="bi bi-envelope-check-fill"></i>
+                </div>
+                <h2 class="fw-bold mb-3">Email Confirmation</h2>
+                <partial name="_StatusMessage" model="Model.StatusMessage" />
+                <div class="mt-4">
+                    <a asp-page="./Login" class="btn btn-custom">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Return to Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

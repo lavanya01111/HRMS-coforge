@@ -1,0 +1,164 @@
+@{
+    ViewData["Title"] = "HR Dashboard";
+}
+
+<!-- GREETING BANNER (MATCHING REFERENCE IMAGE 1: "PEOPLE, POLICIES, PURPOSE") -->
+<div class="greeting-banner">
+    <div class="greeting-text">
+        <span class="greeting-badge">
+            <i class="bi bi-heart-pulse-fill"></i> Human Resources Operations
+        </span>
+        <h2>HR Dashboard</h2>
+        <p class="greeting-quote">
+            "People, Policies, Purpose — Growing Happier Together." ♡
+        </p>
+    </div>
+    <div class="d-none d-lg-block text-end">
+        <a asp-controller="Employee"
+           asp-action="Create"
+           class="btn-hrms-primary px-4 py-3">
+            <i class="bi bi-person-plus me-1"></i> Add Employee
+        </a>
+    </div>
+</div>
+
+<!-- HR MODULE TILES GRID (MATCHING REFERENCE IMAGE 1) -->
+<div class="row g-4 mb-4">
+
+    <!-- Employees -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-pink mb-3">
+                    <i class="bi bi-people fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Employees</h5>
+                <p class="text-muted small mb-4">
+                    Manage profiles, designations, department assignments, and staff records.
+                </p>
+            </div>
+            <a asp-controller="Employee"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                Manage Employees →
+            </a>
+        </div>
+    </div>
+
+    <!-- Departments -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-mint mb-3">
+                    <i class="bi bi-building fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Departments</h5>
+                <p class="text-muted small mb-4">
+                    Organize functional business divisions, teams, and structural hierarchies.
+                </p>
+            </div>
+            <a asp-controller="Department"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                Manage Departments →
+            </a>
+        </div>
+    </div>
+
+    <!-- Attendance -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-peach mb-3">
+                    <i class="bi bi-calendar-check fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Attendance Logs</h5>
+                <p class="text-muted small mb-4">
+                    Monitor company-wide employee attendance, clock-in times, and daily presence.
+                </p>
+            </div>
+            <a asp-controller="Attendance"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                View Attendance →
+            </a>
+        </div>
+    </div>
+
+    <!-- Leave Requests -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-lavender mb-3">
+                    <i class="bi bi-calendar-heart fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Leave Requests</h5>
+                <p class="text-muted small mb-4">
+                    Review, approve, or reject employee leave applications across the organization.
+                </p>
+            </div>
+            <a asp-controller="LeaveRequest"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                Manage Leaves →
+            </a>
+        </div>
+    </div>
+
+    <!-- Payroll -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-pink mb-3">
+                    <i class="bi bi-cash-stack fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Payroll Management</h5>
+                <p class="text-muted small mb-4">
+                    Generate monthly salaries, itemize allowances, deductions, and issue payslips.
+                </p>
+            </div>
+            <a asp-controller="Payroll"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                Manage Payroll →
+            </a>
+        </div>
+    </div>
+
+    <!-- Performance -->
+    <div class="col-md-4">
+        <div class="hrms-card hrms-card-hover h-100 d-flex flex-column justify-content-between p-4">
+            <div>
+                <div class="stat-icon-wrap stat-icon-mint mb-3">
+                    <i class="bi bi-star fs-4"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Performance Reviews</h5>
+                <p class="text-muted small mb-4">
+                    Conduct employee reviews, track ratings, and record developmental feedback.
+                </p>
+            </div>
+            <a asp-controller="PerformanceReview"
+               asp-action="Index"
+               class="btn-hrms-primary w-100 text-center">
+                View Performance →
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- CUTE HR MOTIVATIONAL CARD -->
+<div class="motivational-card p-4">
+    <img src="~/images/cute-avatar.jpg"
+         alt="HR Leader"
+         class="motivational-avatar"
+         style="width: 72px; height: 72px;" />
+    <div>
+        <h4 class="font-serif fw-bold mb-1">
+            "Caring for people is the heart of every great business." ♡
+        </h4>
+        <p class="text-muted small mb-0">
+            Keep uplifting your team. When HR creates psychological safety and genuine recognition, teams flourish.
+        </p>
+    </div>
+</div>

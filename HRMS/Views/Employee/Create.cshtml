@@ -1,0 +1,95 @@
+@model HRMS.ViewModels.Employee.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Create Employee";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">Create Employee</h2>
+            <p class="text-muted mb-0">Register a new employee and configure their organizational profile.</p>
+        </div>
+        <a asp-action="Index" class="btn-hrms-outline">
+            <i class="bi bi-arrow-left me-1"></i> Back to Directory
+        </a>
+    </div>
+</div>
+
+<div class="hrms-card p-4 p-md-5">
+    <form asp-action="Create" method="post">
+
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 mb-4 small" role="alert"></div>
+
+        <div class="row g-4">
+
+            <!-- Employee Name -->
+            <div class="col-md-6">
+                <label asp-for="EmployeeName" class="form-label">Employee Name</label>
+                <input asp-for="EmployeeName" class="form-control" placeholder="Enter full name" />
+                <span asp-validation-for="EmployeeName" class="text-danger small"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label">Work Email</label>
+                <input asp-for="Email" class="form-control" placeholder="name@company.com" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-md-6">
+                <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter contact number" />
+                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+            </div>
+
+            <!-- Designation -->
+            <div class="col-md-6">
+                <label asp-for="Designation" class="form-label">Designation / Role</label>
+                <input asp-for="Designation" class="form-control" placeholder="e.g. Senior Software Engineer" />
+                <span asp-validation-for="Designation" class="text-danger small"></span>
+            </div>
+
+            <!-- Joining Date -->
+            <div class="col-md-6">
+                <label asp-for="JoiningDate" class="form-label">Joining Date</label>
+                <input asp-for="JoiningDate" type="date" class="form-control" />
+                <span asp-validation-for="JoiningDate" class="text-danger small"></span>
+            </div>
+
+            <!-- Department -->
+            <div class="col-md-6">
+                <label asp-for="DepartmentId" class="form-label">Department</label>
+                <select asp-for="DepartmentId" asp-items="ViewBag.Departments" class="form-select">
+                    <option value="">Select Department</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="col-md-6">
+                <label asp-for="Password" class="form-label">Account Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Create temporary login password" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+        </div>
+
+        <div class="d-flex align-items-center gap-3 mt-4 pt-3 border-top" style="border-color: var(--hrms-card-border) !important;">
+            <button type="submit" class="btn-hrms-primary px-4 py-2">
+                <i class="bi bi-check-circle me-1"></i> Create Employee
+            </button>
+            <a asp-action="Index" class="btn-hrms-outline px-4 py-2">
+                Cancel
+            </a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

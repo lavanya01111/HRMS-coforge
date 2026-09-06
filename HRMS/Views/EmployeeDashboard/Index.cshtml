@@ -1,0 +1,331 @@
+@model HRMS.Models.Employee
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<!-- GREETING BANNER (MATCHING REFERENCE IMAGE 2) -->
+<div class="greeting-banner">
+    <div class="greeting-text">
+        <span class="greeting-badge">
+            <i class="bi bi-sparkles"></i> Good Morning, @Model.EmployeeName! ☀️
+        </span>
+        <h2>Here's what's happening with your work today.</h2>
+        <p class="greeting-quote">
+            "Small steps everyday lead to big achievements." ♡
+        </p>
+    </div>
+    <div class="d-none d-lg-block text-end">
+        <a asp-controller="EmployeeDashboard"
+           asp-action="ApplyLeave"
+           class="btn-hrms-primary px-4 py-3">
+            <i class="bi bi-calendar-plus me-1"></i> Apply for Leave
+        </a>
+    </div>
+</div>
+
+<!-- 4 TOP STAT CARDS -->
+<div class="row g-4 mb-4">
+
+    <!-- Attendance Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Attendance</span>
+                    <div class="stat-icon-wrap stat-icon-mint">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                </div>
+                <div class="stat-value text-success" style="font-size: 24px;">Present Today</div>
+                <p class="stat-subtext">Checked in & verified</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="EmployeeDashboard"
+                   asp-action="Attendance"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>Attendance Records</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaves Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Leaves</span>
+                    <div class="stat-icon-wrap stat-icon-pink">
+                        <i class="bi bi-calendar-heart"></i>
+                    </div>
+                </div>
+                <div class="stat-value">Time Off</div>
+                <p class="stat-subtext">Manage leaves & balances</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="EmployeeDashboard"
+                   asp-action="Leaves"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>View Leave Requests</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payroll Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Salary & Payroll</span>
+                    <div class="stat-icon-wrap stat-icon-peach">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                </div>
+                <div class="stat-value">Payroll</div>
+                <p class="stat-subtext">Statements & earnings</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="EmployeeDashboard"
+                   asp-action="Payroll"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>View Payslips</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Card -->
+    <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+            <div>
+                <div class="stat-header">
+                    <span class="stat-title">Performance</span>
+                    <div class="stat-icon-wrap stat-icon-lavender">
+                        <i class="bi bi-star"></i>
+                    </div>
+                </div>
+                <div class="stat-value">Reviews</div>
+                <p class="stat-subtext">Feedback & evaluations</p>
+            </div>
+            <div class="mt-3 pt-2 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <a asp-controller="EmployeeDashboard"
+                   asp-action="Performance"
+                   class="small fw-bold text-decoration-none d-flex align-items-center justify-content-between"
+                   style="color: var(--hrms-primary);">
+                    <span>View Performance</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- MIDDLE ROW: ATTENDANCE OVERVIEW & QUICK ACTIONS -->
+<div class="row g-4 mb-4">
+
+    <!-- Attendance Overview / Check In Action -->
+    <div class="col-lg-6">
+        <div class="hrms-card h-100 d-flex flex-column justify-content-between">
+            <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div>
+                        <h5 class="fw-bold mb-1">Attendance Overview</h5>
+                        <p class="text-muted small mb-0">Record your daily presence and check in/out times</p>
+                    </div>
+                    <span class="badge-hrms badge-present">Active Session</span>
+                </div>
+
+                <!-- Visual Weekly Presence Pills -->
+                <div class="d-flex justify-content-between align-items-center my-4 py-2 px-3 rounded-4" style="background: rgba(0,0,0,0.02); border: 1px dashed var(--hrms-card-border);">
+                    <div class="text-center">
+                        <small class="text-muted d-block mb-1">Mon</small>
+                        <span class="badge-hrms badge-approved">✓</span>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted d-block mb-1">Tue</small>
+                        <span class="badge-hrms badge-approved">✓</span>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted d-block mb-1">Wed</small>
+                        <span class="badge-hrms badge-approved">✓</span>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted d-block mb-1">Thu</small>
+                        <span class="badge-hrms badge-approved">✓</span>
+                    </div>
+                    <div class="text-center">
+                        <small class="text-muted d-block mb-1">Fri</small>
+                        <span class="badge-hrms badge-present">●</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Check In / Out Buttons -->
+            <div class="d-flex gap-3 pt-3 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckIn"
+                      method="post"
+                      class="flex-grow-1">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-hrms-primary w-100 py-2">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Check In
+                    </button>
+                </form>
+
+                <form asp-controller="EmployeeDashboard"
+                      asp-action="CheckOut"
+                      method="post"
+                      class="flex-grow-1">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-hrms-danger-soft w-100 py-2">
+                        <i class="bi bi-box-arrow-right me-1"></i> Check Out
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions Grid -->
+    <div class="col-lg-6">
+        <div class="hrms-card h-100">
+            <div class="mb-3">
+                <h5 class="fw-bold mb-1">Quick Actions</h5>
+                <p class="text-muted small mb-0">Jump directly to your frequent workspaces</p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Profile"
+                       class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="bi bi-person-vcard"></i>
+                        </div>
+                        <h6 class="quick-action-title">My Profile</h6>
+                        <p class="quick-action-desc">View details & designation</p>
+                    </a>
+                </div>
+
+                <div class="col-sm-6">
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="ApplyLeave"
+                       class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="bi bi-calendar-plus"></i>
+                        </div>
+                        <h6 class="quick-action-title">Apply Leave</h6>
+                        <p class="quick-action-desc">Request time off</p>
+                    </a>
+                </div>
+
+                <div class="col-sm-6">
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Payroll"
+                       class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="bi bi-receipt"></i>
+                        </div>
+                        <h6 class="quick-action-title">View Payroll</h6>
+                        <p class="quick-action-desc">Check salary & allowances</p>
+                    </a>
+                </div>
+
+                <div class="col-sm-6">
+                    <a asp-controller="EmployeeDashboard"
+                       asp-action="Performance"
+                       class="quick-action-card">
+                        <div class="quick-action-icon">
+                            <i class="bi bi-trophy"></i>
+                        </div>
+                        <h6 class="quick-action-title">Performance</h6>
+                        <p class="quick-action-desc">View reviews & growth</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- BOTTOM ROW: RECENT ACTIVITY & MOTIVATIONAL CARD -->
+<div class="row g-4">
+
+    <!-- Recent Activity -->
+    <div class="col-lg-7">
+        <div class="hrms-card h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h5 class="fw-bold mb-1">Recent Activity</h5>
+                    <p class="text-muted small mb-0">Your latest work updates & events</p>
+                </div>
+                <span class="small text-muted">Real-time</span>
+            </div>
+
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex align-items-center gap-3 p-2 rounded-3">
+                    <div class="stat-icon-wrap stat-icon-mint" style="width: 38px; height: 38px; font-size: 16px;">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold small">Daily Attendance Logged</div>
+                        <small class="text-muted">Presence recorded successfully</small>
+                    </div>
+                    <small class="text-muted">Today</small>
+                </div>
+
+                <div class="d-flex align-items-center gap-3 p-2 rounded-3">
+                    <div class="stat-icon-wrap stat-icon-pink" style="width: 38px; height: 38px; font-size: 16px;">
+                        <i class="bi bi-calendar2-heart"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold small">Leave Request Portal</div>
+                        <small class="text-muted">Review balances and pending submissions</small>
+                    </div>
+                    <small class="text-muted">Active</small>
+                </div>
+
+                <div class="d-flex align-items-center gap-3 p-2 rounded-3">
+                    <div class="stat-icon-wrap stat-icon-peach" style="width: 38px; height: 38px; font-size: 16px;">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-semibold small">Payroll Overview Generated</div>
+                        <small class="text-muted">Latest payslip and monthly record verified</small>
+                    </div>
+                    <small class="text-muted">Monthly</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Motivational Card (Matching Reference Image 2: "You are doing great! ♡") -->
+    <div class="col-lg-5">
+        <div class="motivational-card h-100 flex-column text-center justify-content-center p-4">
+            <img src="~/images/cute-avatar.jpg"
+                 alt="Warm aesthetic avatar"
+                 class="motivational-avatar mb-3"
+                 style="width: 90px; height: 90px;" />
+
+            <h4 class="font-serif fw-bold mb-1" style="font-size: 26px;">
+                You are doing great! ♡
+            </h4>
+
+            <p class="text-muted small mb-3" style="max-width: 300px;">
+                Keep showing up with pride. Every task and positive interaction you bring helps our workplace shine brighter.
+            </p>
+
+            <span class="font-hand fs-4" style="color: var(--hrms-primary);">
+                Life is cute at work ♡
+            </span>
+        </div>
+    </div>
+
+</div>

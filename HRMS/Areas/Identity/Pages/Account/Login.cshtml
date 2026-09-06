@@ -1,0 +1,162 @@
+@page
+@model LoginModel
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Sign In";
+}
+
+<div class="auth-split-wrapper">
+
+    <div class="auth-split-container">
+
+        <!-- LEFT BRAND PANEL (MATCHING REFERENCE IMAGE 2) -->
+        <div class="auth-side-brand">
+
+            <div class="auth-brand-logo">
+                <div class="auth-brand-icon">
+                    ♡
+                </div>
+                <div>
+                    <strong class="d-block fs-5" style="letter-spacing: 0.5px;">HRMS</strong>
+                    <small style="letter-spacing: 2px; font-size: 9px; opacity: 0.85;">WORKFORCE HUB</small>
+                </div>
+            </div>
+
+            <div class="auth-side-content">
+                <h2 class="auth-side-title">
+                    Welcome Back
+                </h2>
+
+                <p class="auth-side-desc">
+                    Sign in to continue to your workspace and make great things happen today.
+                </p>
+
+                <div class="auth-feature-list">
+                    <div class="auth-feature-item">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Secure Enterprise Access</span>
+                    </div>
+
+                    <div class="auth-feature-item">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Manage Your Daily Work</span>
+                    </div>
+
+                    <div class="auth-feature-item">
+                        <i class="bi bi-chat-heart"></i>
+                        <span>Stay Connected With Your Team</span>
+                    </div>
+
+                    <div class="auth-feature-item">
+                        <i class="bi bi-heart"></i>
+                        <span>Be Part of a Better Workplace</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="auth-side-quote">
+                “Empowering people to build brighter tomorrows.”
+                <span class="font-hand fs-5 d-block mt-1">Work with love ♡</span>
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT FORM PANEL (MATCHING REFERENCE IMAGE 2) -->
+        <div class="auth-form-panel">
+
+            <div class="mb-4">
+                <h3 class="auth-form-title">Login</h3>
+                <p class="auth-form-subtitle">Sign in to your HRMS account</p>
+            </div>
+
+            <form id="account" method="post">
+
+                <div asp-validation-summary="ModelOnly"
+                     class="alert alert-danger py-2 px-3 mb-4 fs-6"
+                     role="alert">
+                </div>
+
+                <!-- Email Address -->
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label">
+                        Email address
+                    </label>
+                    <div class="position-relative">
+                        <input asp-for="Input.Email"
+                               class="form-control"
+                               autocomplete="username"
+                               placeholder="name@company.com" />
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label">
+                        Password
+                    </label>
+                    <div class="position-relative">
+                        <input asp-for="Input.Password"
+                               class="form-control"
+                               autocomplete="current-password"
+                               placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <!-- Options -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               asp-for="Input.RememberMe" />
+                        <label class="form-check-label text-muted"
+                               asp-for="Input.RememberMe"
+                               style="font-size: 13px;">
+                            Remember me
+                        </label>
+                    </div>
+
+                    <a asp-page="./ForgotPassword"
+                       class="small fw-semibold"
+                       style="color: var(--hrms-primary); font-size: 13px;">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="login-submit"
+                        type="submit"
+                        class="btn-hrms-primary w-100 py-3 mb-3">
+                    Login
+                </button>
+
+            </form>
+
+            <div class="auth-divider">
+                <span>or</span>
+            </div>
+
+            <!-- Create Account Link -->
+            <a asp-page="./Register"
+               asp-route-returnUrl="@Model.ReturnUrl"
+               class="btn-hrms-outline w-100 py-3 text-center">
+                Create new account
+            </a>
+
+            <div class="text-center mt-4">
+                <small class="font-hand fs-5" style="color: var(--hrms-primary);">
+                    A better workplace starts with you. ♡
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

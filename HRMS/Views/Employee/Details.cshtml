@@ -1,0 +1,73 @@
+@model HRMS.ViewModels.Employee.EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">Employee Details</h2>
+            <p class="text-muted mb-0">Complete profile and employment record overview.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.EmployeeId" class="btn-hrms-primary">
+                <i class="bi bi-pencil me-1"></i> Edit
+            </a>
+            <a asp-action="Index" class="btn-hrms-outline">
+                <i class="bi bi-arrow-left me-1"></i> Back
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="hrms-card text-center p-4">
+            <div class="sidebar-avatar mx-auto mb-3" style="width: 84px; height: 84px; font-size: 32px;">
+                @(Model.EmployeeName?.Substring(0, 1).ToUpper() ?? "E")
+            </div>
+            <h4 class="fw-bold mb-1">@Model.EmployeeName</h4>
+            <p class="text-muted mb-2">@Model.Designation</p>
+            <span class="badge-hrms badge-role">EMP-@Model.EmployeeId.ToString("D4")</span>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="hrms-card p-4">
+            <h5 class="fw-bold mb-4 pb-2 border-bottom" style="border-color: var(--hrms-card-border) !important;">
+                Profile Attributes
+            </h5>
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Email Address</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.Email</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Phone Number</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.PhoneNumber</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Joining Date</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.JoiningDate.ToString("dd MMMM yyyy")</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Department ID</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.DepartmentId</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

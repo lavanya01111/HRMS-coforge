@@ -1,0 +1,131 @@
+@model IEnumerable<HRMS.Models.Employee>
+
+@{
+    ViewData["Title"] = "Manager Dashboard";
+}
+
+<!-- GREETING BANNER -->
+<div class="greeting-banner">
+    <div class="greeting-text">
+        <span class="greeting-badge">
+            <i class="bi bi-person-badge-fill"></i> Department Leadership
+        </span>
+        <h2>Welcome, @ViewBag.ManagerName! 👋</h2>
+        <p class="greeting-quote">
+            "Great leaders inspire greatness in others." ♡
+        </p>
+    </div>
+    <div class="d-none d-lg-block text-end">
+        <span class="badge-hrms badge-role fs-6 px-3 py-2">
+            <i class="bi bi-building me-1"></i> Department: @ViewBag.DepartmentName
+        </span>
+    </div>
+</div>
+
+<!-- STATS ROW -->
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">Team Members</span>
+                <div class="stat-icon-wrap stat-icon-pink">
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+            <div class="stat-value">@(ViewBag.TotalEmployees ?? 0)</div>
+            <p class="stat-subtext">Employees in your department</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">Department</span>
+                <div class="stat-icon-wrap stat-icon-mint">
+                    <i class="bi bi-building"></i>
+                </div>
+            </div>
+            <div class="stat-value" style="font-size: 24px;">@ViewBag.DepartmentName</div>
+            <p class="stat-subtext">Assigned division</p>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <div class="stat-header">
+                <span class="stat-title">Team Status</span>
+                <div class="stat-icon-wrap stat-icon-lavender">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+            </div>
+            <div class="stat-value text-success" style="font-size: 24px;">Active & On Track</div>
+            <p class="stat-subtext">All reporting direct</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- TEAM TABLE -->
+<div class="hrms-table-container p-0">
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--hrms-card-border) !important;">
+        <div>
+            <h5 class="fw-bold mb-0">Department Team Members</h5>
+            <small class="text-muted">Staff currently assigned to @ViewBag.DepartmentName</small>
+        </div>
+        <span class="badge-hrms badge-role">@(Model?.Count() ?? 0) Members</span>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Designation</th>
+                        <th>Email</th>
+                        <th>Joining Date</th>
+                        <th class="text-end">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var employee in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="sidebar-avatar" style="width: 34px; height: 34px; font-size: 13px;">
+                                        @(employee.EmployeeName?.Substring(0, 1).ToUpper() ?? "E")
+                                    </div>
+                                    <span class="fw-semibold">@employee.EmployeeName</span>
+                                </div>
+                            </td>
+                            <td>@employee.Designation</td>
+                            <td>@employee.Email</td>
+                            <td>@employee.JoiningDate.ToString("dd MMM yyyy")</td>
+                            <td class="text-end">
+                                <a asp-controller="Employee"
+                                   asp-action="Details"
+                                   asp-route-id="@employee.EmployeeId"
+                                   class="btn-hrms-soft">
+                                    <i class="bi bi-eye"></i> View Profile
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <div class="stat-icon-wrap stat-icon-pink mx-auto mb-3" style="width: 60px; height: 60px; font-size: 26px;">
+                <i class="bi bi-people"></i>
+            </div>
+            <h5 class="fw-bold mb-1">No Team Members Found</h5>
+            <p class="text-muted small mb-0">There are currently no employees assigned to this department.</p>
+        </div>
+    }
+</div>

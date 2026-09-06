@@ -1,0 +1,123 @@
+@model HRMS.Models.Employee
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">My Profile</h2>
+            <p class="text-muted mb-0">View and manage your personal and organization details.</p>
+        </div>
+        <a asp-action="Index" class="btn-hrms-outline">
+            <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+
+    <!-- Profile Header Card (Matching Reference Image 2) -->
+    <div class="col-lg-4">
+        <div class="hrms-card text-center p-4 h-100 d-flex flex-column align-items-center justify-content-center">
+
+            <!-- Big Avatar Circle with Initials -->
+            <div class="d-flex align-items-center justify-content-center mx-auto mb-3 shadow-sm"
+                 style="width: 100px; height: 100px; border-radius: 50%; background: var(--hrms-primary-gradient); color: white; font-size: 38px; font-weight: 800; border: 4px solid var(--hrms-card-bg); box-shadow: 0 8px 24px rgba(193, 91, 128, 0.25);">
+                @(Model.EmployeeName?.Substring(0, 1).ToUpper() ?? "E")
+            </div>
+
+            <h4 class="fw-bold mb-1">@Model.EmployeeName</h4>
+            <p class="text-muted mb-2">@Model.Designation</p>
+
+            <div class="mb-3">
+                <span class="badge-hrms badge-role">
+                    <i class="bi bi-patch-check-fill me-1"></i> Verified Employee
+                </span>
+            </div>
+
+            <div class="w-100 pt-3 border-top" style="border-color: var(--hrms-card-border) !important;">
+                <small class="text-muted d-block mb-1">Department</small>
+                <div class="fw-semibold">@(Model.Department?.DepartmentName ?? "General Organization")</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Personal Information Card (Matching Reference Image 2) -->
+    <div class="col-lg-8">
+        <div class="hrms-card p-4 h-100">
+
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom" style="border-color: var(--hrms-card-border) !important;">
+                <div>
+                    <h5 class="fw-bold mb-1">Personal Information</h5>
+                    <p class="text-muted small mb-0">Official employment and contact records</p>
+                </div>
+                <span class="badge-hrms badge-present">Active</span>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Employee ID</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-bold">EMP-@Model.EmployeeId.ToString("D4")</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Full Name</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.EmployeeName</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Email Address</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.Email</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Phone Number</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.PhoneNumber</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Department</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@(Model.Department?.DepartmentName ?? "N/A")</span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label text-muted small text-uppercase fw-bold">Joining Date</label>
+                    <div class="p-3 rounded-3" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                        <span class="fw-semibold">@Model.JoiningDate.ToString("dd MMMM yyyy")</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Motivational Quote Box (Matching Reference Image 2) -->
+            <div class="motivational-card mt-4 p-3">
+                <div class="stat-icon-wrap stat-icon-pink" style="width: 44px; height: 44px; font-size: 20px;">
+                    ♡
+                </div>
+                <div>
+                    <div class="motivational-text font-serif" style="font-size: 16px;">
+                        “A motivated employee is a happy employee.”
+                    </div>
+                    <small class="text-muted">Thank you for contributing your talents to our team every day.</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

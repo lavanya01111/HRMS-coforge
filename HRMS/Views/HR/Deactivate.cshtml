@@ -1,0 +1,54 @@
+@model HRMS.Data.ApplicationUser
+
+@{
+    ViewData["Title"] = "Deactivate HR";
+}
+
+<div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="fw-bold font-serif mb-1">Deactivate HR Account</h2>
+            <p class="text-muted mb-0">Suspend HR system access and administrative capabilities.</p>
+        </div>
+        <a asp-action="Index" class="btn-hrms-outline">
+            <i class="bi bi-arrow-left me-1"></i> Cancel
+        </a>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="hrms-card p-4 p-md-5">
+
+            <div class="alert alert-warning py-3 px-4 rounded-4 mb-4 d-flex align-items-center gap-3 border-0"
+                 style="background: var(--badge-warning-bg); color: var(--badge-warning-text);">
+                <i class="bi bi-exclamation-triangle-fill fs-3"></i>
+                <div>
+                    <strong class="d-block">Are you sure you want to deactivate this HR account?</strong>
+                    <small>The user will be prevented from logging in. Account history and past records will remain intact.</small>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-4 mb-4" style="background: rgba(0,0,0,0.02); border: 1px solid var(--hrms-card-border);">
+                <h5 class="fw-bold mb-1">@Model.UserName</h5>
+                <small class="text-muted d-block mb-2">@Model.Email</small>
+                <span class="badge-hrms badge-role">HR Account</span>
+            </div>
+
+            <form asp-action="DeactivateConfirmed" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="d-flex gap-3">
+                    <button type="submit" class="btn-hrms-danger-soft px-4 py-2">
+                        <i class="bi bi-person-x me-1"></i> Yes, Deactivate Account
+                    </button>
+                    <a asp-action="Index" class="btn-hrms-outline px-4 py-2">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

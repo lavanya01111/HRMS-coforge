@@ -1,0 +1,118 @@
+@model IEnumerable<HRMS.Models.Manager>
+
+@{
+    ViewData["Title"] = "Manage Managers";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold font-serif mb-1">Department Managers</h2>
+        <p class="text-muted mb-0">Create, assign and oversee department heads and team managers.</p>
+    </div>
+
+    <a asp-action="Create" class="btn-hrms-primary">
+        <i class="bi bi-person-plus me-1"></i> Create Manager
+    </a>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success py-3 px-4 rounded-4 mb-4 d-flex align-items-center gap-2 border-0 shadow-sm"
+         style="background: var(--badge-success-bg); color: var(--badge-success-text);">
+        <i class="bi bi-check-circle-fill fs-5"></i>
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
+<div class="hrms-table-container p-0">
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--hrms-card-border) !important;">
+        <div>
+            <h5 class="fw-bold mb-0">Manager Directory</h5>
+            <small class="text-muted">Assigned leadership</small>
+        </div>
+        <span class="badge-hrms badge-role">@(Model?.Count() ?? 0) Managers</span>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Manager</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Department</th>
+                    <th>Joining Date</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var manager in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="sidebar-avatar" style="width: 36px; height: 36px; font-size: 13px;">
+                                        @(manager.ManagerName?.Substring(0, 1).ToUpper() ?? "M")
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold">@manager.ManagerName</div>
+                                        <small class="text-muted">@manager.Designation</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>@manager.Email</td>
+                            <td>@manager.PhoneNumber</td>
+                            <td>
+                                @if (manager.Department != null)
+                                {
+                                    <span class="badge-hrms badge-present">
+                                        @manager.Department.DepartmentName
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted small">Not Assigned</span>
+                                }
+                            </td>
+                            <td>@manager.JoiningDate.ToString("dd MMM yyyy")</td>
+                            <td class="text-end">
+                                <div class="d-inline-flex gap-1">
+                                    <a asp-action="Details"
+                                       asp-route-id="@manager.ManagerId"
+                                       class="btn-hrms-soft btn-sm"
+                                       title="View Details">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-id="@manager.ManagerId"
+                                       class="btn-hrms-soft btn-sm"
+                                       title="Edit Manager">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-id="@manager.ManagerId"
+                                       class="btn-hrms-danger-soft btn-sm"
+                                       title="Delete Manager">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            No managers found. Click "Create Manager" to add one.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

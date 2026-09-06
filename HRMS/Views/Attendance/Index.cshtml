@@ -1,0 +1,93 @@
+@model IEnumerable<HRMS.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Organization Attendance";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold font-serif mb-1">Company Attendance Records</h2>
+        <p class="text-muted mb-0">Review daily attendance logs and presence timestamps across all staff.</p>
+    </div>
+
+    <a asp-controller="HRDashboard"
+       asp-action="Index"
+       class="btn-hrms-outline">
+        <i class="bi bi-arrow-left me-1"></i> HR Dashboard
+    </a>
+</div>
+
+<div class="hrms-table-container p-0">
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center" style="border-color: var(--hrms-card-border) !important;">
+        <div>
+            <h5 class="fw-bold mb-0">Attendance Log History</h5>
+            <small class="text-muted">Presence tracking</small>
+        </div>
+        <span class="badge-hrms badge-role">@(Model?.Count() ?? 0) Records</span>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Check In Time</th>
+                        <th>Check Out Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var attendance in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="badge-hrms badge-role">EMP-@attendance.EmployeeId.ToString("D4")</span>
+                            </td>
+                            <td>
+                                <span class="fw-bold">@attendance.AttendanceDate.ToString("dd MMM yyyy")</span>
+                                <small class="text-muted d-block">@attendance.AttendanceDate.ToString("dddd")</small>
+                            </td>
+                            <td>
+                                @if (attendance.Status == "Present")
+                                {
+                                    <span class="badge-hrms badge-present">
+                                        <i class="bi bi-check-circle-fill"></i> Present
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-hrms badge-rejected">
+                                        @attendance.Status
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                <span class="fw-semibold">
+                                    @(attendance.CheckInTime.HasValue ? attendance.CheckInTime.Value.ToString("hh:mm tt") : "--")
+                                </span>
+                            </td>
+                            <td>
+                                <span class="fw-semibold">
+                                    @(attendance.CheckOutTime.HasValue ? attendance.CheckOutTime.Value.ToString("hh:mm tt") : "--")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <div class="stat-icon-wrap stat-icon-mint mx-auto mb-3" style="width: 60px; height: 60px; font-size: 26px;">
+                <i class="bi bi-calendar-check"></i>
+            </div>
+            <h5 class="fw-bold mb-1">No Attendance Records Logged</h5>
+            <p class="text-muted small mb-0">Daily employee check-in logs will appear here.</p>
+        </div>
+    }
+</div>
