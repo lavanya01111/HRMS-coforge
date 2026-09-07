@@ -555,6 +555,30 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid var(--badge-info-border);
 }
 
+.badge-future {
+    background: rgba(0, 0, 0, 0.02);
+    color: var(--hrms-text-muted);
+    border: 1px dashed var(--hrms-card-border);
+    opacity: 0.55;
+}
+
+.weekly-presence-badge {
+    width: 32px;
+    height: 32px;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50% !important;
+    transition: all 0.2s ease;
+}
+
+.weekly-presence-badge:hover {
+    transform: scale(1.12);
+}
+
 /* ==========================================================================
    AUTHENTICATED DASHBOARD SHELL & SIDEBAR
    ========================================================================== */
@@ -758,6 +782,38 @@ h1, h2, h3, h4, h5, h6 {
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+.topbar-welcome {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topbar-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--hrms-card-bg);
+    border: 1px solid var(--hrms-card-border);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--hrms-text-primary);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.topbar-date-badge i {
+    color: var(--hrms-primary);
+    font-size: 14px;
+}
+
+.topbar-quote-tag {
+    font-size: 1.15rem;
+    color: var(--hrms-primary);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
 }
 
 .topbar-search {
